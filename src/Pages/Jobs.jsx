@@ -69,7 +69,7 @@ function JobCard({ job }) {
         className="text-xl font-semibold text-gray-900 hover:text-blue-600 transition"
       >
         {job.title}
-      </Link>
+
       <p className="text-sm text-gray-600 mt-1">{job.company} • {job.location}</p>
       {job.workType && (
         <span className="mt-2 inline-block bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">
@@ -77,6 +77,7 @@ function JobCard({ job }) {
         </span>
       )}
       <p className="mt-2 text-blue-700 font-semibold">{job.salary ? `₱${job.salary}` : "Salary not listed"}</p>
+      </Link>
 
       {/* Hover overlay */}
       <div className="absolute inset-0 bg-white bg-opacity-95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-between rounded-3xl">
