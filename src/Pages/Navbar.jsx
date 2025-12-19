@@ -1,4 +1,3 @@
-// Navbar.jsx
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
@@ -10,13 +9,12 @@ export default function Navbar() {
           Jobly
         </Link>
 
-        {/* Desktop Menu */}
         <div className="flex items-center space-x-6">
           <Link
             to="/jobs"
             className="text-blue-600 hover:text-blue-600 font-medium transition"
           >
-            Jobs
+            Home
           </Link>
           <Link
             to="/postjob"

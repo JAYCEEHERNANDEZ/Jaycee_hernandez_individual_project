@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-// Import your static jobs if any
 import { jobs as staticJobs } from "../data/jobs";
 
 export default function JobsPage() {
   const [query, setQuery] = useState("");
   const [jobs, setJobs] = useState([]);
 
-  // Load jobs from localStorage + static jobs
   useEffect(() => {
     const storedJobs = JSON.parse(localStorage.getItem("jobs")) || [];
     setJobs([...staticJobs, ...storedJobs]);
@@ -19,7 +17,8 @@ export default function JobsPage() {
 
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5 mb-10 px-20 pt-12">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5 mb-10 px-6 md:px-20 pt-12">
         <h1 className="text-3xl font-bold text-blue-600">Explore Career Opportunities</h1>
 
         <div className="w-full md:w-1/3 relative">
@@ -34,7 +33,8 @@ export default function JobsPage() {
         </div>
       </div>
 
-      <section className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 px-20 flex-1">
+      {/* Jobs Grid */}
+      <section className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6 md:px-20 flex-1">
         {filteredJobs.length > 0 ? (
           filteredJobs.map((job) => <JobCard key={job.id} job={job} />)
         ) : (
@@ -45,10 +45,11 @@ export default function JobsPage() {
         )}
       </section>
 
-      <footer className="bg-black/90 text-white mt-5">
-        <div className="px-20 py-6 flex flex-col md:flex-row justify-between items-center">
+      {/* Footer */}
+      <footer className="bg-black/90 text-white mt-10">
+        <div className="px-6 md:px-20 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm">&copy; {new Date().getFullYear()} Career Portal. All rights reserved.</p>
-          <div className="flex gap-6 mt-2 md:mt-0">
+          <div className="flex gap-6">
             <Link to="/about" className="hover:underline">About</Link>
             <Link to="/contact" className="hover:underline">Contact</Link>
             <Link to="/privacy" className="hover:underline">Privacy Policy</Link>
@@ -61,16 +62,45 @@ export default function JobsPage() {
 
 function JobCard({ job }) {
   return (
-    <div className="group bg-white border border-blue-200 rounded-3xl p-6 shadow-[0_6px_16px_rgba(0,0,0,0.08)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.15)] hover:-translate-y-1 transition-all duration-300">
+    <div className="group relative bg-white border border-blue-200 rounded-3xl p-6 shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+      {/* Basic info */}
       <h3 className="text-xl font-semibold text-gray-900">{job.title}</h3>
       <p className="text-sm text-gray-600 mt-1">{job.company} • {job.location}</p>
-      <p className="mt-3 text-blue-700 font-semibold">{job.salary}</p>
-      <Link
-        to={`/jobs/${job.id}`}
-        className="inline-block mt-4 text-blue-600 font-semibold group-hover:underline"
-      >
-        View details →
-      </Link>
+      {job.workType && (
+        <span className="mt-2 inline-block bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">
+          {job.workType}
+        </span>
+      )}
+      <p className="mt-2 text-blue-700 font-semibold">{job.salary ? `₱${job.salary}` : "Salary not listed"}</p>
+
+      {/* Hover overlay */}
+      <div className="absolute inset-0 bg-white bg-opacity-95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-between rounded-3xl">
+        {/* Top: Description + requirements */}
+        <div>
+          {job.description && (
+            <p className="text-gray-700 text-sm mb-3 line-clamp-3">{job.description}</p>
+          )}
+          {job.requirements && job.requirements.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-3">
+              {job.requirements.slice(0, 3).map((req, i) => (
+                <span key={i} className="bg-blue-100 text-blue-700 px-3 py-1 text-xs rounded-full">
+                  {req}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Bottom: Buttons */}
+        <div className="flex flex-col gap-2 mt-4">
+          <Link
+            to={`/jobs/${job.id}`}
+            className="text-center bg-blue-600 text-white py-2 rounded-xl font-semibold hover:bg-blue-700 transition"
+          >
+            View Details
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

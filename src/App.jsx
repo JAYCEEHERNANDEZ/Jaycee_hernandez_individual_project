@@ -1,6 +1,5 @@
-// App.jsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import Navbar from "./Pages/Navbar";
 import Landing from "./Pages/Landing";
 import JobsPage from "./Pages/Jobs";
 import JobDetails from "./Pages/JobDetails";
