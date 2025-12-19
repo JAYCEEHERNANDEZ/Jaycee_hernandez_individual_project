@@ -64,7 +64,11 @@ function JobCard({ job }) {
   return (
     <div className="group relative bg-white border border-blue-200 rounded-3xl p-6 shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden">
       {/* Basic info */}
-      <h3 className="text-xl font-semibold text-gray-900">{job.title}</h3>
+       <Link
+            to={`/jobs/${job.id}`}
+          >
+            <h3 className="text-xl font-semibold text-gray-900">{job.title}</h3>
+          </Link>
       <p className="text-sm text-gray-600 mt-1">{job.company} • {job.location}</p>
       {job.workType && (
         <span className="mt-2 inline-block bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">
