@@ -76,7 +76,7 @@ function JobCard({ job }) {
           {job.workType}
         </span>
       )}
-      <p className="mt-2 text-blue-700 font-semibold">{job.salary ? `₱${job.salary}` : "Salary not listed"}</p>
+      <p className="mt-2 text-blue-700 font-semibold">{job.salary ? `${job.salary}` : "Salary not listed"}</p>
       </Link>
 
       {/* Hover overlay */}
